@@ -1,0 +1,26 @@
+{
+  "name": "shohojogi-server",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "check": "node --check index.js && node --check config/db.js && node --check middleware/authMiddleware.js && node --check routes/eventRoutes.js && node --check routes/userRoutes.js && node --check routes/dashboardRoutes.js && node --check controllers/eventController.js && node --check controllers/userController.js && node --check controllers/dashboardController.js && node --check tests/auth-middleware.test.js && node --check tests/event-validation.test.js && node --check tests/api-routes.test.js",
+    "test": "node --test",
+    "lint": "npm run check",
+    "build": "npm run check"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongodb": "^7.8.0"
+  }
+}
