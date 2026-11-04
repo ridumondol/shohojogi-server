@@ -1,30 +1,35 @@
 import express from "express";
-
 import {
   registerUser,
   loginUser,
+  logoutUser,
   getMyProfile,
   updateMyProfile,
   changePassword,
+  initiateGoogleOAuth,
+  handleGoogleOAuthCallback,
+  initiateGitHubOAuth,
+  handleGitHubOAuthCallback,
 } from "../controllers/userController.js";
-
 import { verifyToken } from "../middleware/authMiddleware.js";
+import { loginRateLimiter } from "../middleware/rateLimiter.js";
 
 const router = express.Router();
 
-// Register
+// Public auth endpoints
 router.post("/register", registerUser);
+router.post("/login", loginRateLimiter, loginUser);
+router.post("/logout", logoutUser);
 
-// Login
-router.post("/login", loginUser);
+// Social authentication: Google & GitHub OAuth 2.0
+router.get("/oauth/google", initiateGoogleOAuth);
+router.get("/oauth/google/callback", handleGoogleOAuthCallback);
+router.get("/oauth/github", initiateGitHubOAuth);
+router.get("/oauth/github/callback", handleGitHubOAuthCallback);
 
-// Get Profile
+// Protected user profile routes
 router.get("/profile", verifyToken, getMyProfile);
-
-// Update Profile
 router.put("/profile", verifyToken, updateMyProfile);
-
-// Change Password
 router.put("/change-password", verifyToken, changePassword);
 
 export default router;
