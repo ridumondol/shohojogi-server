@@ -1,103 +1,124 @@
-﻿# Shohojogi Server
+# 🤝 সহযোগী (Shohojogi) - Community-Driven Social Event Management Platform
 
-Backend REST API for Shohojogi, a community-driven social service events platform.
+[![Live Site](https://img.shields.io/badge/Live%20Demo-Shohojogi-blue?style=for-the-badge&logo=vercel)](https://shohojogi-delta.vercel.app/)
+[![Server Repo](https://img.shields.io/badge/GitHub-Server--Repository-181717?style=for-the-badge&logo=github)](https://github.com/ridumondol/shohojogi-server)
 
-## Features
+**Shohojogi** is a community-driven web application designed to connect local volunteers with social development and community service events. Users can create, discover, manage, and join impactful social service initiatives—such as winter clothing drives, blanket distribution, tree plantation, and cleanliness campaigns—all within a modern and responsive user interface.
 
-- User registration and login
-- JWT authentication
-- User profile management
-- Password changing
-- Event creation and management
-- Event discovery and participation
-- Featured events
-- Dashboard statistics
-- MongoDB integration
-- Automated API tests
+---
 
-## Tech Stack
+## 🔗 Quick Links
 
-- Node.js 20+
-- Express.js 5
-- MongoDB
-- JWT
-- bcryptjs
-- dotenv
-- CORS
+- **Live Application:** [https://shohojogi-delta.vercel.app/](https://shohojogi-delta.vercel.app/)
+- **Server Repository:** [https://github.com/ridumondol/shohojogi-server](https://github.com/ridumondol/shohojogi-server)
 
-## Installation
+---
 
-1. Clone the repository.
-2. Run `npm install`.
-3. Create a `.env` file using `.env.example`.
-4. Configure your MongoDB URL and JWT secret.
-5. Run `npm run dev`.
+## ✨ Key Features
 
-## Environment Variables
+- 🔐 **Secure Authentication & JWT Protection:** Full authentication with Email/Password and Google Social Login. Protected routes and sensitive APIs are secured using JSON Web Tokens (JWT).
+- 📅 **Dynamic Event Management:** Users can post upcoming social events with details (Title, Type, Description, Date, Location, Image). Validations prevent adding events with past dates.
+- 🎯 **Event Discovery & Joining System:** Browse upcoming events in a responsive grid layout. Filter out past events automatically, view full details, and join events with a single click.
+- ⚙️ **User Dashboard (Manage & Joined Events):** 
+  - **Manage Events:** Allows event creators to update or delete only their created events.
+  - **Joined Events:** A dedicated space for volunteers to track all events they have registered to participate in, sorted chronologically.
+- 🌓 **Interactive UI & Dark/Light Theme:** Features dynamic theme toggling (Light/Dark mode) for maximum user comfort, sleek toast notifications, loading skeletons, and responsive layouts for mobile, tablet, and desktop devices.
 
-Required:
-- `MONGODB_URL`
-- `JWT_SECRET`
+---
 
-Optional:
-- `MONGODB_DB_NAME`
-- `PORT`
-- `NODE_ENV`
-- `CLIENT_URL`
-- `CLIENT_URLS`
-- `MONGODB_MAX_POOL_SIZE`
+## 🛠️ Tech Stack
 
-Never commit your `.env` file.
+### **Frontend**
+- **Framework:** Next.js (App Router) / React
+- **Styling:** Tailwind CSS, ShadCN UI / DaisyUI / Hero UI
+- **Icons & Notifications:** Lucide Icons, SweetAlert2 / React Hot Toast
+- **State & Auth:** JWT Context / Firebase Auth / BetterAuth
 
-## Available Scripts
+### **Backend**
+- **Runtime Environment:** Node.js
+- **Framework:** Express.js
+- **Database:** MongoDB (Native Driver / Mongoose)
+- **Security:** JSON Web Token (JWT), CORS, Environment Variables (`dotenv`)
 
-- `npm run dev` - Start development server.
-- `npm start` - Start production server.
-- `npm test` - Run automated tests.
-- `npm run check` - Check JavaScript syntax.
-- `npm run lint` - Run syntax checks.
-- `npm run build` - Run project checks.
+---
 
-## API Endpoints
+## 🚀 Getting Started Locally
 
-Base URL: `http://localhost:8000`
+Follow these instructions to run the project locally on your machine.
 
-### General
-- GET `/`
-- GET `/health`
+### Prerequisites
+- [Node.js](https://nodejs.org/) (v18 or higher)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+- [MongoDB Account](https://www.mongodb.com/) (For database connection)
 
-### Users — `/api/users`
-- POST `/register`
-- POST `/login`
-- GET `/profile` (Authentication required)
-- PUT `/profile` (Authentication required)
-- PUT `/change-password` (Authentication required)
+---
 
-### Events — `/api/events`
-- GET `/`
-- GET `/featured`
-- GET `/my-events` (Authentication required)
-- GET `/my-joined-events` (Authentication required)
-- GET `/:id`
-- POST `/` (Authentication required)
-- PUT `/:id` (Authentication required)
-- DELETE `/:id` (Authentication required)
-- POST `/:id/join` (Authentication required)
-- DELETE `/:id/join` (Authentication required)
+### 1. Client Setup (Frontend)
 
-### Dashboard — `/api/dashboard`
-- GET `/stats` (Authentication required)
+```bash
+# Clone the client repository
+git clone https://github.com/ridumondol/shohojogi-client.git
 
-Protected endpoints require a valid JWT access token.
+# Navigate to client directory
+cd shohojogi-client
 
-## Deployment
+# Install dependencies
+npm install
 
-This project includes a `render.yaml` configuration for Render deployment.
+# Create a .env.local file in the root directory and add required keys:
+NEXT_PUBLIC_API_URL=http://localhost:5000
+NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
+# Add other auth keys here...
 
-Configure `MONGODB_URL`, `JWT_SECRET`, and `CLIENT_URL` in Render environment settings.
+# Run the development server
+npm run dev
+```
 
-Health check endpoint: `/health`.
+The application will be running at `http://localhost:3000`.
 
-## License
+---
 
-This project is private.
+### 2. Server Setup (Backend)
+
+```bash
+# Clone the server repository
+git clone https://github.com/ridumondol/shohojogi-server.git
+
+# Navigate to server directory
+cd shohojogi-server
+
+# Install dependencies
+npm install
+
+# Create a .env file in the root directory and add the following:
+PORT=5000
+DB_USER=your_mongodb_username
+DB_PASS=your_mongodb_password
+ACCESS_TOKEN_SECRET=your_jwt_secret_key
+
+# Start the server
+npm start
+```
+
+The server will be running on `http://localhost:5000`.
+
+---
+
+## 📡 API Endpoints Overview
+
+| Method | Endpoint | Description | Auth Required |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/events` | Get all upcoming events | ❌ No |
+| `GET` | `/events/recent` | Get 6 recent upcoming events | ❌ No |
+| `GET` | `/events/:id` | Get details of a single event | ❌ No |
+| `POST` | `/events` | Create a new social event | 🔐 Yes |
+| `PATCH` | `/events/:id` | Update an event (Owner only) | 🔐 Yes |
+| `DELETE` | `/events/:id` | Delete an event (Owner only) | 🔐 Yes |
+| `POST` | `/joined-events` | Join an upcoming event | 🔐 Yes |
+| `GET` | `/joined-events` | Get all events joined by logged-in user | 🔐 Yes |
+
+---
+
+## 📜 License
+
+This project is created for educational and community service purposes under the [MIT License](LICENSE).
