@@ -1,6 +1,7 @@
 # 🤝 সহযোগী (Shohojogi) - Community-Driven Social Event Management Platform
 
 [![Live Site](https://img.shields.io/badge/Live%20Demo-Shohojogi-blue?style=for-the-badge&logo=vercel)](https://shohojogi-delta.vercel.app/)
+[![Client Repo](https://img.shields.io/badge/GitHub-Client--Repository-24292e?style=for-the-badge&logo=github)](https://github.com/ridumondol/shohojogi-client)
 [![Server Repo](https://img.shields.io/badge/GitHub-Server--Repository-181717?style=for-the-badge&logo=github)](https://github.com/ridumondol/shohojogi-server)
 
 **Shohojogi** is a community-driven web application designed to connect local volunteers with social development and community service events. Users can create, discover, manage, and join impactful social service initiatives—such as winter clothing drives, blanket distribution, tree plantation, and cleanliness campaigns—all within a modern and responsive user interface.
@@ -10,6 +11,7 @@
 ## 🔗 Quick Links
 
 - **Live Application:** [https://shohojogi-delta.vercel.app/](https://shohojogi-delta.vercel.app/)
+- **Client Repository:** [https://github.com/ridumondol/shohojogi-client](https://github.com/ridumondol/shohojogi-client)
 - **Server Repository:** [https://github.com/ridumondol/shohojogi-server](https://github.com/ridumondol/shohojogi-server)
 
 ---
