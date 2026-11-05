@@ -55,3 +55,25 @@ test("development client origin is permitted by CORS", async () => {
     assert.equal(response.headers.get("access-control-allow-origin"), "http://localhost:3000");
   });
 });
+
+test("private profile update route rejects missing bearer token with 401", async () => {
+  await withServer(async (baseUrl) => {
+    const response = await fetch(`${baseUrl}/api/users/profile`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: "Jane Doe" }),
+    });
+    assert.equal(response.status, 401);
+    assert.equal((await response.json()).success, false);
+  });
+});
+
+test("private cancel participation route rejects missing bearer token with 401", async () => {
+  await withServer(async (baseUrl) => {
+    const response = await fetch(`${baseUrl}/api/events/64f1a2b3c4d5e6f7a8b9c0d1/join`, {
+      method: "DELETE",
+    });
+    assert.equal(response.status, 401);
+    assert.equal((await response.json()).success, false);
+  });
+});

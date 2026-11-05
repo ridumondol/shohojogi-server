@@ -59,7 +59,15 @@ function isFutureEvent(event) {
 }
 
 function serializeEvent(event) {
-  return { ...event, _id: event._id?.toString() };
+  return {
+    ...event,
+    _id: event._id?.toString(),
+    thumbnail: event.image || event.thumbnail || "",
+    eventType: event.category || event.eventType || "Volunteer",
+    eventDate: event.date || event.eventDate || "",
+    creatorName: event.organizer || event.creatorName || "",
+    creatorEmail: event.creatorEmail || event.organizerEmail || "",
+  };
 }
 
 export async function getAllEvents(_req, res) {

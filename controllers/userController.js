@@ -23,8 +23,12 @@ function publicUser(user) {
     name: user.name,
     email: user.email,
     photoURL: user.photoURL || "",
+    phone: user.phone || "",
+    bio: user.bio || "",
+    location: user.location || "",
     role: user.role || "user",
     createdAt: user.createdAt,
+    updatedAt: user.updatedAt,
   };
 }
 
@@ -164,14 +168,21 @@ export async function getMyProfile(req, res) {
 export async function updateMyProfile(req, res) {
   const name = typeof req.body?.name === "string" ? req.body.name.trim() : "";
   const photoURL = typeof req.body?.photoURL === "string" ? req.body.photoURL.trim() : "";
+  const phone = typeof req.body?.phone === "string" ? req.body.phone.trim() : "";
+  const bio = typeof req.body?.bio === "string" ? req.body.bio.trim() : "";
+  const location = typeof req.body?.location === "string" ? req.body.location.trim() : "";
+
   if (!name || name.length > 80) return res.status(400).json({ success: false, message: "Name is required and must be 80 characters or fewer." });
   if (!validPhotoUrl(photoURL)) return res.status(400).json({ success: false, message: "Profile photo must be a valid HTTP or HTTPS URL." });
+  if (phone.length > 25) return res.status(400).json({ success: false, message: "Phone number must be 25 characters or fewer." });
+  if (bio.length > 500) return res.status(400).json({ success: false, message: "Bio must be 500 characters or fewer." });
+  if (location.length > 100) return res.status(400).json({ success: false, message: "Location must be 100 characters or fewer." });
 
   try {
     const db = await getDB();
     const result = await db.collection("users").findOneAndUpdate(
       { email: req.user.email },
-      { $set: { name, photoURL, updatedAt: new Date() } },
+      { $set: { name, photoURL, phone, bio, location, updatedAt: new Date() } },
       { returnDocument: "after", projection: { password: 0 } }
     );
     const updatedUser = result?.value ?? result;
